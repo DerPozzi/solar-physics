@@ -105,8 +105,12 @@ fn print_planets(query: Query<(&Name, &Radius, &Mass, &Velocity), With<Planet>>)
     }
 }
 
+fn setup(mut commands: Commands) {
+    commands.spawn(Camera2d);
+}
+
 impl Plugin for SolarSystem {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, (add_planets, print_planets).chain());
+        app.add_systems(Startup, (setup, (add_planets, print_planets).chain()));
     }
 }

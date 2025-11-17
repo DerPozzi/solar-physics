@@ -178,7 +178,7 @@ fn apply_velocity(mut query: Query<(&Name, &mut Transform, &Velocity), With<Plan
 }
 
 fn gravity_between_bodies(mut query: Query<(&mut Velocity, &Transform, &Mass), With<Planet>>) {
-    let g: f64 = G_WORLD / SCALE_DOWN; // dein „Spiel-G“, du kannst später realistisch werden
+    let g: f64 = G_WORLD / (SCALE_DOWN * 10000000000.0); // dein „Spiel-G“, du kannst später realistisch werden
     let eps: f32 = 1.0; // softening
 
     let mut combos = query.iter_combinations_mut();
@@ -211,7 +211,7 @@ impl Plugin for SolarSystem {
             FixedUpdate,
             (
                 apply_velocity,
-                bounce_on_window_edges,
+                // bounce_on_window_edges,
                 gravity_between_bodies,
             ),
         );
